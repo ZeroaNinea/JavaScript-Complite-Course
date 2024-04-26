@@ -63,3 +63,31 @@ printGoals(game.scored, game.scored);
 /* This is very similar to the formal logic and the discrete math. */
 team1 < team2 && console.log('Team 1 will win.');
 team1 > team2 && console.log('Team 2 will win.');
+
+/* Second Part */
+const oddLength = Object.entries(game.odds);
+
+console.log('\n', 'Second Part', '\n\n');
+for(const [key, value] of game.scored.entries()) {
+	console.log(`Goal ${key+1}: ${value}.`);
+} // Log who scored goals.
+
+let avgOdd = 0;
+for(const [key, value] of Object.entries(game.odds)) {
+	avgOdd += value;
+}
+console.log(avgOdd / oddLength.length); // Log odds average.
+
+for(const [key, value] of Object.entries(game.odds)) {
+	if(key === 'x') {
+		console.log(`Odd of draw: ${value}`);
+	} else {
+		console.log(`Odd of victory ${game[key]}: ${value}`);
+	}
+} // Odds of victory and draw.
+
+const scorers = {};
+game.scored.forEach(function(i) {
+	scorers[i] = (scorers[i] || 0) + 1;
+});
+console.log(scorers); // Log to the console how many times specific players scored goal.
