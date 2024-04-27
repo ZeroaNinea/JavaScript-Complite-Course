@@ -35,7 +35,7 @@ const poll = {
 
 			displayResults.call(this, this.results); // Show changed array.
 		} else {
-			console.log('Invalid input!'); // If input is invalid.
+			console.error('Invalid input!'); // If input is invalid.
 		}
 	}
 }
