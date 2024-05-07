@@ -245,47 +245,47 @@ const whereAmI2 = function() {
 // getPosition().then(pos => console.log(pos));
 }
 { // Coding Challenge #26 Show Images
-function wait(t) {
-	return new Promise((resolve) => {
-		setTimeout(resolve, 1000 * t);
-	});
-}
+// function wait(t) {
+// 	return new Promise((resolve) => {
+// 		setTimeout(resolve, 1000 * t);
+// 	});
+// }
 
-const createImage = function(imgPath) {
-	return new Promise((resolve, reject) => {
-		const img = document.createElement('img');
-		img.setAttribute('src', imgPath);
+// const createImage = function(imgPath) {
+// 	return new Promise((resolve, reject) => {
+// 		const img = document.createElement('img');
+// 		img.setAttribute('src', imgPath);
 
-		img.addEventListener('load', function() {
-			document.querySelector('div.images').appendChild(img);
-			resolve(img);
-		});
+// 		img.addEventListener('load', function() {
+// 			document.querySelector('div.images').appendChild(img);
+// 			resolve(img);
+// 		});
 
-		img.addEventListener('error', function() {
-			reject(new Error('There is no image'));
-		});
-	});
-}
+// 		img.addEventListener('error', function() {
+// 			reject(new Error('There is no image'));
+// 		});
+// 	});
+// }
 
-let currentImg;
+// let currentImg;
 
-createImage('https://images.freeimages.com/images/large-previews/c31/colors-1383652.jpg?fmt=webp&h=350').then(img => {
-	currentImg = img;
-	console.log('Image 1 loaded');
+// createImage('https://images.freeimages.com/images/large-previews/c31/colors-1383652.jpg?fmt=webp&h=350').then(img => {
+// 	currentImg = img;
+// 	console.log('Image 1 loaded');
 
-	return wait(2);
-}).then(() => {
-	currentImg.style.display = 'none';
-	
-	return createImage('img/img-2.jpg');
-}).then(img => {
-	currentImg = img;
-	console.log('Image 2 loaded');
+// 	return wait(2);
+// }).then(() => {
+// 	currentImg.style.display = 'none';
 
-	return wait(2);
-}).then(() => {
-	currentImg.style.display = 'none';
-}).catch(err => console.log(err));
+// 	return createImage('img/img-2.jpg');
+// }).then(img => {
+// 	currentImg = img;
+// 	console.log('Image 2 loaded');
+
+// 	return wait(2);
+// }).then(() => {
+// 	currentImg.style.display = 'none';
+// }).catch(err => console.log(err));
 }
 { // Asysc Await
 // const getPosition = function() {
@@ -312,4 +312,33 @@ createImage('https://images.freeimages.com/images/large-previews/c31/colors-1383
 // }
 // whereAmI();
 // console.log('first');
+}
+{ // Coding Challenge #27 Loading Images by an Async Function
+const createImage = function(imgPath) {
+	return new Promise((resolve, reject) => {
+		const img = document.createElement('img');
+		img.setAttribute('src', imgPath);
+
+		img.addEventListener('load', function() {
+			document.querySelector('div.images').appendChild(img);
+			resolve(img);
+		});
+
+		img.addEventListener('error', function() {
+			reject(new Error('There is no image'));
+		});
+	});
+}
+
+const loadAll = async function(imgArr) {
+	try {
+		const imgs = imgArr.map(async img => await createImage(img));
+		const imgsEl = await Promise.all(imgs);
+		console.log(imgsEl);
+		imgsEl.map(img => img.classList.add('paralell'));
+	} catch(err) {
+		console.error(err);
+	}
+}
+loadAll(['/img/img-1.jpg', '/img/img-2.jpg', '/img/img-3.jpg']);
 }
